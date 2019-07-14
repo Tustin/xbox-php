@@ -42,6 +42,6 @@ final class ResponseHandlerMiddleware
      */
     public function handleErrorResponse(Response $response) : void
     {
-        throw new Exception('Request failed');
+        throw new \Exception('Request failed');
     }
 }

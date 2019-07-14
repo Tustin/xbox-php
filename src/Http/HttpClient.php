@@ -14,76 +14,76 @@ class HttpClient
 
     private $lastResponse;
 
-    public function get(string $path, array $body = [], array $headers = []) 
+    public function get(string $path, array $body = [], array $options = []) 
     {
         $path .= (strpos($path, '?') === false) ? '?' : '&';
         $path .= urldecode(http_build_query($body));
 
-        return ($this->lastResponse = $this->httpClient->get($path,  [
-            'headers' => $headers
-        ]))->getBody();
+        return ($this->lastResponse = $this->httpClient->get($path, $options))->getBody();
     }
 
-    public function post(string $path, array $body, array $headers = []) 
+    public function post(string $path, array $body, array $options = []) 
     {
-        return ($this->lastResponse = $this->httpClient->post($path, [
-            'form_params' => $body,
-            'headers' => $headers
-        ]))->getBody();
+        $options = array_merge($options, [
+            'form_params' => $body
+        ]);
+
+        return ($this->lastResponse = $this->httpClient->post($path, $options))->getBody();
     }
 
-    public function postJson(string $path, array $body, array $headers = []) 
+    public function postJson(string $path, array $body, array $options = []) 
     {
-        return ($this->lastResponse = $this->httpClient->post($path, [
-            'json' => $body,
-            'headers' => $headers
-        ]))->getBody();
+        $options = array_merge($options, [
+            'json' => $body
+        ]);
+
+        return ($this->lastResponse = $this->httpClient->post($path, $options))->getBody();
     }
 
-    public function postMultiPart(string $path, array $body, array $headers = [])
+    public function postMultiPart(string $path, array $body, array $options = [])
     {
-        return ($this->lastResponse = $this->httpClient->post($path, [
-            'multipart' => $body,
-            'headers' => $headers
-        ]))->getBody();
+        $options = array_merge($options, [
+            'multipart' => $body
+        ]);
+
+        return ($this->lastResponse = $this->httpClient->post($path, $options))->getBody();
     }
 
-    public function delete(string $path, array $headers = [])
+    public function delete(string $path, array $options = [])
     {
-        return ($this->lastResponse = $this->httpClient->delete($path, [
-            'headers' => $headers
-        ]))->getBody();
+        return ($this->lastResponse = $this->httpClient->delete($path, $options))->getBody();
     }
 
-    public function patch(string $path, $body = null, array $headers = [])
+    public function patch(string $path, $body = null, array $options = [])
     {
-        return ($this->lastResponse = $this->httpClient->patch($path, [
-            'headers' => $headers
-        ]))->getBody();
+        return ($this->lastResponse = $this->httpClient->patch($path, $options))->getBody();
     }
 
-    public function put(string $path, $body = null, array $headers = [])
+    public function put(string $path, $body = null, array $options = [])
     {
-        return ($this->lastResponse = $this->httpClient->put($path, [
-            'form_params' => $body,
-            'headers' => $headers
-        ]))->getBody();
+        $options = array_merge($options, [
+            'form_params' => $body
+        ]);
+
+        return ($this->lastResponse = $this->httpClient->put($path, $options))->getBody();
     }
 
-    public function putJson(string $path, $body = null, array $headers = [])
+    public function putJson(string $path, $body = null, array $options = [])
     {
-        return ($this->lastResponse = $this->httpClient->put($path, [
-            'json' => $body,
-            'headers' => $headers
-        ]))->getBody();
+        $options = array_merge($options, [
+            'json' => $body
+        ]);
+    
+        return ($this->lastResponse = $this->httpClient->put($path, $options))->getBody();
     }
 
-    public function putMultiPart(string $path, $body = null, array $headers = [])
+    public function putMultiPart(string $path, $body = null, array $options = [])
     {
-        return ($this->lastResponse = $this->httpClient->put($path, [
-            'multipart' => $body,
-            'headers' => $headers
-        ]))->getBody();
+        $options = array_merge($options, [
+            'multipart' => $body
+        ]);
+    
+        return ($this->lastResponse = $this->httpClient->put($path, $options))->getBody();
     }
 
     public function lastResponse() : Response

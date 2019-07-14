@@ -22,7 +22,7 @@ class JsonAwareResponseMiddleware extends Response
 
         // if JSON HTTP header detected - then decode
         if (false !== strpos($this->getHeaderLine('Content-Type'), 'application/json')) {
-            return $this->json = \json_decode($body, true);
+            return $this->json = \json_decode($body);
         }
 
         return $body->getContents();
